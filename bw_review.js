@@ -5,8 +5,8 @@
    Tutorial 11
    Case Problem 1
 
-   Author: 
-   Date:   
+   Author: Khalel Abaquin
+   Date:   3.14.19
    
    Filename: bw_review.js
 	
@@ -34,18 +34,28 @@
 
 */
 
+window.onload = init;
 
+var stars;
 
-  
+function init() {
+      stars = document.querySelectorAll("span#stars img");
+      for (var i = 0; i < stars.length; i++) {
+            stars[i].style.cursor = "pointer";
+            document.addEventListener("mouseenter", lightStars());
+      }
+      document.getElementById("comment").addEventListener("keyup", count());
+}
 
+function lightStars() {
+      // step 5c
+      stars = document.querySelectorAll("span#stars img");
+}
 
-  
-  
-  
 /*=================================================================*/
 
 function countCharacters(textStr) {
-   var commentregx = /\s/g;
-   var chars = textStr.replace(commentregx, "");
-   return chars.length;
-}   
+      var commentregx = /\s/g;
+      var chars = textStr.replace(commentregx, "");
+      return chars.length;
+}
