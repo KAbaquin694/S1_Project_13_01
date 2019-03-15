@@ -34,23 +34,41 @@
 
 */
 
+//This line of code loads the function 'init' every time the browser refreshes.
 window.onload = init;
 
+//This line of code declares 'stars' as a global variable with ni value.
 var stars;
 
+//This section of code creates the function 'init', declares the value of the 'stars' variable to every 'span' element with the id of 'stars', & nests a for loop within itself.
 function init() {
       stars = document.querySelectorAll("span#stars img");
       for (var i = 0; i < stars.length; i++) {
             stars[i].style.cursor = "pointer";
-            document.addEventListener("mouseenter", lightStars());
+            stars[i].addEventListener("mouseenter", lightStars);
       }
-      document.getElementById("comment").addEventListener("keyup", count());
+      // document.getElementById("comment").addEventListener("keyup", count);
+      // ^ step 8 ^
 }
 
-function lightStars() {
-      // step 5c
+function lightStars(e) {
+      var starNumber = e.target.alt; //something wrong here?
       stars = document.querySelectorAll("span#stars img");
+      var starSelected = e;
+      for (var i = 0; i < starNumber; i++) {
+            stars[i].src = "bw_star2.png";
+      }
+      for (var i = 0; starNumber < 5; i++) {
+            stars.src = "bw_star.png";
+      }
+      document.getElementById("rating") = starNumber + " " + "stars";
+      e.target.addEventListener("mouseleave", turnOffStars);
+      e.target.addEventListener("click", function (){
+            starSelected.target.removeEventListener("mouseleave", turnOffStars);
+      });
 }
+
+// Add an event listener for the target of the event object that runs an anonymous function removing the turnOffStars() function from the mouseleave event.
 
 /*=================================================================*/
 
