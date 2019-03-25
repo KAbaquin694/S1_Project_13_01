@@ -38,22 +38,19 @@
 window.onload = init;
 
 //This line of code declares 'stars' as a global variable with ni value.
-var stars;
+var stars = document.querySelectorAll("span#stars img");
 
 //This section of code creates the function 'init', declares the value of the 'stars' variable to every 'span' element with the id of 'stars', & nests a for loop within itself.
 function init() {
-      stars = document.querySelectorAll("span#stars img");
       for (var i = 0; i < stars.length; i++) {
             stars[i].style.cursor = "pointer";
             stars[i].addEventListener("mouseenter", lightStars);
       }
-      // document.getElementById("comment").addEventListener("keyup", count);
-      // ^ step 8 ^
+      document.getElementById("comment").addEventListener("keyup", updateCount);
 }
 
 function lightStars(e) {
-      var starNumber = e.target.alt; //something wrong here?
-      stars = document.querySelectorAll("span#stars img");
+      var starNumber = e.target.alt;
       var starSelected = e;
       for (var i = 0; i < starNumber; i++) {
             stars[i].src = "bw_star2.png";
@@ -63,9 +60,30 @@ function lightStars(e) {
       }
       document.getElementById("rating") = starNumber + " " + "stars";
       e.target.addEventListener("mouseleave", turnOffStars);
-      e.target.addEventListener("click", function (){
+      e.target.addEventListener("click", function () {
             starSelected.target.removeEventListener("mouseleave", turnOffStars);
       });
+}
+
+function turnOffStars() {
+      for (var i = 0; stars.length < 5; i++) {
+            stars.src = "bw_star.png";
+      }
+      document.getElementById("rating").innerHTML = "";
+}
+
+function updateCount() {
+      var commentText = document.querySelectorAll("textarea comment");
+      var charCount = countCharacters(commentText);
+      wordCountBox = document.querySelectorAll("input wordCount");
+      document.getElementById("wordCount").innerHTML = charCount + "/1000";
+      if (charCount > 1000) {
+            document.getElementById("wordCount").style.color = white;
+            document.getElementById("wordCount").style.backgroundColor = red;
+      } else {
+            document.getElementById("wordCount").style.color = black;
+            document.getElementById("wordCount").style.backgroundColor = white;
+      }
 }
 
 // Add an event listener for the target of the event object that runs an anonymous function removing the turnOffStars() function from the mouseleave event.
